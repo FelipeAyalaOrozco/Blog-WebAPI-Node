@@ -42,11 +42,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var userController_1 = require("./controllers/userController");
+var postController_1 = require("./controllers/postController");
 var repositories_1 = require("./repositories");
 var port = 1337;
 var app = express_1.default();
 app.use(body_parser_1.default.json());
 app.use('/users', userController_1.userController);
+app.use('/posts', postController_1.postController);
 app.get('/', function (req, res) {
     res.send('API is running OK');
 });

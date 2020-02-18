@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = __importDefault(require("../models/user"));
+var mongoose_1 = __importDefault(require("mongoose"));
 var findByEmailAndPassword = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -61,7 +62,11 @@ var saveUser = function (user) { return __awaiter(void 0, void 0, void 0, functi
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                newUser = new user_1.default(user);
+                newUser = new user_1.default({
+                    _id: new mongoose_1.default.Types.ObjectId(),
+                    email: user.email,
+                    password: user.password
+                });
                 return [4 /*yield*/, newUser.save()];
             case 1: return [2 /*return*/, _a.sent()];
         }

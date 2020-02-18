@@ -73,4 +73,24 @@ exports.postController.post('/', checkToken, function (req, res) { return __awai
         }
     });
 }); });
+exports.postController.post('/:id/comment', checkToken, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, decodedToken, post;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                decodedToken = jsonwebtoken_1.default.decode(req.headers['authorization']);
+                return [4 /*yield*/, postRepository_1.default.commentPost(id, req.body, decodedToken.email)];
+            case 1:
+                post = _a.sent();
+                if (post) {
+                    res.status(200).json({ message: 'OK', post: post });
+                }
+                else {
+                    res.status(400).json({ message: 'bad request', post: post });
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
 //# sourceMappingURL=postController.js.map

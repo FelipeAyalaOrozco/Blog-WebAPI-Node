@@ -1,2 +1,8 @@
 node_modules/
 dist
+dist/controllers/postController.js
+dist/controllers/postController.js.map
+dist/repositories/postRepository.js
+dist/repositories/postRepository.js.map
+dist/repositories/userRepository.js
+dist/repositories/userRepository.js.map

@@ -39,25 +39,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var body_parser_1 = __importDefault(require("body-parser"));
-var userController_1 = require("./controllers/userController");
-var postController_1 = require("./controllers/postController");
-var repositories_1 = require("./repositories");
-var port = 1337;
-var app = express_1.default();
-app.use(body_parser_1.default.json());
-app.use('/users', userController_1.userController);
-app.use('/posts', postController_1.postController);
-app.get('/', function (req, res) {
-    res.send('API is running OK');
-});
-repositories_1.connectDB().then(function () { return __awaiter(void 0, void 0, void 0, function () {
+var express_1 = require("express");
+var postRepository_1 = __importDefault(require("../repositories/postRepository"));
+exports.postController = express_1.Router();
+exports.postController.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var post;
     return __generator(this, function (_a) {
-        app.listen(port, function () {
-            console.log("APi is running on port " + port);
-        });
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, postRepository_1.default.savePost(req.body)];
+            case 1:
+                post = _a.sent();
+                if (post) {
+                    res.status(200).json({ message: 'OK' });
+                }
+                else {
+                    res.status(400).json({ message: 'bad request' });
+                }
+                return [2 /*return*/];
+        }
     });
 }); });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=postController.js.map

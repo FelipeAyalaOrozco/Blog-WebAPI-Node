@@ -72,10 +72,40 @@ exports.userController.post('/', function (req, res) { return __awaiter(void 0, 
             case 1:
                 user = _a.sent();
                 if (user) {
-                    res.status(200).json({ user: user });
+                    res.status(200).json({ user: user, message: 'OK' });
                 }
                 else {
-                    res.status(400).json({ err: 'Something is wrong with request' });
+                    res.status(400).json({ message: 'bad request' });
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
+var checkToken = function (req, res, next) {
+    var token = req.headers['authorization'];
+    jsonwebtoken_1.default.verify(token, 'super-key-super-secret', function (err, data) {
+        if (err) {
+            res.status(400).json({ err: err });
+        }
+        else {
+            next();
+        }
+    });
+};
+exports.userController.get('/:id', checkToken, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, userRepository_1.default.findById(id)];
+            case 1:
+                user = _a.sent();
+                if (user) {
+                    res.status(200).json({ user: user, message: "OK" });
+                }
+                else {
+                    res.status(404).json({ message: 'User not found' });
                 }
                 return [2 /*return*/];
         }

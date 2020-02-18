@@ -67,14 +67,26 @@ var savePost = function (body, email) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); };
-var commentAPost = function (id, comment) { return __awaiter(void 0, void 0, void 0, function () {
-    var newComment;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+var commentPost = function (id, body, email) { return __awaiter(void 0, void 0, void 0, function () {
+    var post, author, newComment, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
-                newComment = new comment_1.default(comment);
+                post = post_1.default.findById(id);
+                author = user_1.default.findOne({ email: email });
+                _a = comment_1.default.bind;
+                _b = {
+                    _id: new mongoose_1.default.Types.ObjectId(),
+                    comment: body.comment
+                };
+                return [4 /*yield*/, author];
+            case 1:
+                newComment = new (_a.apply(comment_1.default, [void 0, (_b.author = (_c.sent())._id,
+                        _b.date = body.date,
+                        _b)]))();
+                post.comment = newComment._id;
                 return [4 /*yield*/, newComment.save()];
-            case 1: return [2 /*return*/, _a.sent()];
+            case 2: return [2 /*return*/, _c.sent()];
         }
     });
 }); };
@@ -88,6 +100,10 @@ var findByIdAndDelete = function (id) { return __awaiter(void 0, void 0, void 0,
 }); };
 exports.default = {
     savePost: savePost,
+<<<<<<< HEAD
     findByIdAndDelete: findByIdAndDelete
+=======
+    commentPost: commentPost
+>>>>>>> dc9fe9f31d587c0848ea062ea1683b2aa7abf870
 };
 //# sourceMappingURL=postRepository.js.map

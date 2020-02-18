@@ -19,8 +19,16 @@ const savePost = async (body, email) => {
 
     return await newPost.save()
 }
-const commentAPost = async (id, comment) => {
-    const newComment = new Comment(comment)
+const commentPost = async (id, body, email) => {
+    const post = Post.findById(id)
+    const author = User.findOne({email})
+    const newComment = new Comment({
+        _id : new mongoose.Types.ObjectId(),
+        comment: body.comment,
+        author : (await author)._id,
+        date : body.date,
+    })
+    post.comment = newComment._id
     return await newComment.save()
 }
 
@@ -30,5 +38,6 @@ const findByIdAndDelete = async (id) =>{
 
 export default {
     savePost,
-    findByIdAndDelete
+    findByIdAndDelete,
+    commentPost
 }

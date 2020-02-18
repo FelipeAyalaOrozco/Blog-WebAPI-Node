@@ -73,12 +73,18 @@ exports.postController.post('/', checkToken, function (req, res) { return __awai
         }
     });
 }); });
+<<<<<<< HEAD
 exports.postController.delete('/:id', checkToken, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, post;
+=======
+exports.postController.post('/:id/comment', checkToken, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, decodedToken, post;
+>>>>>>> dc9fe9f31d587c0848ea062ea1683b2aa7abf870
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 id = req.params.id;
+<<<<<<< HEAD
                 return [4 /*yield*/, postRepository_1.default.findByIdAndDelete(id)];
             case 1:
                 post = _a.sent();
@@ -87,6 +93,17 @@ exports.postController.delete('/:id', checkToken, function (req, res) { return _
                 }
                 else {
                     res.status(404).json({ message: 'post not found' });
+=======
+                decodedToken = jsonwebtoken_1.default.decode(req.headers['authorization']);
+                return [4 /*yield*/, postRepository_1.default.commentPost(id, req.body, decodedToken.email)];
+            case 1:
+                post = _a.sent();
+                if (post) {
+                    res.status(200).json({ message: 'OK', post: post });
+                }
+                else {
+                    res.status(400).json({ message: 'bad request', post: post });
+>>>>>>> dc9fe9f31d587c0848ea062ea1683b2aa7abf870
                 }
                 return [2 /*return*/];
         }

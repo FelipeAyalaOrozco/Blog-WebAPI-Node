@@ -1,15 +1,11 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 const userSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
-    email: {
-        type: String
-    },
+    _id: Schema.Types.ObjectId,
+    email: String,
     password: {
         type: String,
-        minlength: 5 
+        minlength: 5
     }
 })
 

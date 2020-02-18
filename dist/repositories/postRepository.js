@@ -40,13 +40,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var post_1 = __importDefault(require("../models/post"));
+var comment_1 = __importDefault(require("../models/comment"));
+var mongoose_1 = __importDefault(require("mongoose"));
 var savePost = function (post) { return __awaiter(void 0, void 0, void 0, function () {
     var newPost;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                newPost = new post_1.default(post);
+                newPost = new post_1.default({
+                    _id: new mongoose_1.default.Types.ObjectId(),
+                    title: post.title,
+                    date: post.date,
+                    author: new mongoose_1.default.Types.ObjectId(),
+                    comments: [],
+                    totalComments: post.totalComments,
+                    content: post.content
+                });
                 return [4 /*yield*/, newPost.save()];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+var commentAPost = function (id, comment) { return __awaiter(void 0, void 0, void 0, function () {
+    var newComment;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                newComment = new comment_1.default(comment);
+                return [4 /*yield*/, newComment.save()];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });

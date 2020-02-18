@@ -40,9 +40,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
+var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var postRepository_1 = __importDefault(require("../repositories/postRepository"));
 exports.postController = express_1.Router();
-exports.postController.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var checkToken = function (req, res, next) {
+    var token = req.headers['authorization'];
+    jsonwebtoken_1.default.verify(token, 'super-key-super-secret', function (err, data) {
+        if (err) {
+            res.status(400).json({ err: err });
+        }
+        else {
+            next();
+        }
+    });
+};
+exports.postController.post('/', checkToken, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var post;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -50,10 +62,10 @@ exports.postController.post('/', function (req, res) { return __awaiter(void 0, 
             case 1:
                 post = _a.sent();
                 if (post) {
-                    res.status(200).json({ message: 'OK' });
+                    res.status(200).json({ message: 'OK', post: post });
                 }
                 else {
-                    res.status(400).json({ message: 'bad request' });
+                    res.status(400).json({ message: 'bad request', post: post });
                 }
                 return [2 /*return*/];
         }

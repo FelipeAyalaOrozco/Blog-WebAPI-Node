@@ -1,12 +1,10 @@
 import mongoose, { Schema } from 'mongoose'
-import User from './user'
-import Comment from './comment'
 
 const postSchema = new mongoose.Schema({
     _id: Schema.Types.ObjectId,
     title: String,
     date: String,
-    author: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    author: { type: Schema.Types.ObjectId, ref: 'User' },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     totalComments: Number,
     content: String

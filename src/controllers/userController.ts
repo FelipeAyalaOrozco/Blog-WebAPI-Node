@@ -50,3 +50,14 @@ userController.get('/:id', checkToken,  async (req, res) => {
     }
 })
 
+userController.delete('/:id', checkToken,  async (req, res) => {
+    const id = req.params.id
+    const user = await userRepository.findByIdAndDelete(id)
+    if(user){
+        res.status(200).json({user, message: "OK"})
+
+    }else{
+        res.status(404).json({ message: 'User not found' })
+    }
+})
+

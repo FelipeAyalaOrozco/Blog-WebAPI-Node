@@ -67,9 +67,18 @@ var saveUser = function (user) { return __awaiter(void 0, void 0, void 0, functi
         }
     });
 }); };
+var findByIdAndDelete = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, user_1.default.findByIdAndDelete(id)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
 exports.default = {
     findByEmailAndPassword: findByEmailAndPassword,
     findById: findById,
-    saveUser: saveUser
+    saveUser: saveUser,
+    findByIdAndDelete: findByIdAndDelete
 };
 //# sourceMappingURL=userRepository.js.map

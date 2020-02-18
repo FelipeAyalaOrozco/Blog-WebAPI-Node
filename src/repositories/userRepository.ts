@@ -1,4 +1,5 @@
 import User from '../models/user'
+import { userController } from '../controllers/userController'
 
 const findByEmailAndPassword = async (email, password) => {
     return await User.findOne({email, password})
@@ -13,8 +14,13 @@ const saveUser = async (user) => {
     return await newUser.save()
 }
 
+const findByIdAndDelete = async (id) =>{
+    return await User.findByIdAndDelete(id)
+}
+
 export default {
     findByEmailAndPassword,
     findById,
-    saveUser
+    saveUser,
+    findByIdAndDelete
 }

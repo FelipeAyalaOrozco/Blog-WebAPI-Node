@@ -18,7 +18,7 @@ const checkToken = (req, res, next) => {
 }
 
 postController.post('/',  checkToken, async(req, res) => {
-    const post = await postRepository.savePost(req.body)
+    const post = await postRepository.savePost(req)
     if(post) {
         res.status(200).json({ message:'OK', post })
     }else{

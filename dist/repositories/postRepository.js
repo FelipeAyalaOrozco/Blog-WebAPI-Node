@@ -42,22 +42,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var post_1 = __importDefault(require("../models/post"));
 var comment_1 = __importDefault(require("../models/comment"));
 var mongoose_1 = __importDefault(require("mongoose"));
-var savePost = function (post) { return __awaiter(void 0, void 0, void 0, function () {
-    var newPost;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+var user_1 = __importDefault(require("../models/user"));
+var savePost = function (body, email) { return __awaiter(void 0, void 0, void 0, function () {
+    var author, newPost, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
-                newPost = new post_1.default({
+                author = user_1.default.findOne({ email: email });
+                _a = post_1.default.bind;
+                _b = {
                     _id: new mongoose_1.default.Types.ObjectId(),
-                    title: post.title,
-                    date: post.date,
-                    author: new mongoose_1.default.Types.ObjectId(),
-                    comments: [],
-                    totalComments: post.totalComments,
-                    content: post.content
-                });
+                    title: body.title,
+                    date: body.date
+                };
+                return [4 /*yield*/, author];
+            case 1:
+                newPost = new (_a.apply(post_1.default, [void 0, (_b.author = (_c.sent())._id,
+                        _b.comments = [],
+                        _b.totalComments = body.totalComments,
+                        _b.content = body.content,
+                        _b)]))();
                 return [4 /*yield*/, newPost.save()];
-            case 1: return [2 /*return*/, _a.sent()];
+            case 2: return [2 /*return*/, _c.sent()];
         }
     });
 }); };

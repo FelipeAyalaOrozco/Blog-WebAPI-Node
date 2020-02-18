@@ -55,10 +55,12 @@ var checkToken = function (req, res, next) {
     });
 };
 exports.postController.post('/', checkToken, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var post;
+    var decodedToken, post;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, postRepository_1.default.savePost(req.body)];
+            case 0:
+                decodedToken = jsonwebtoken_1.default.decode(req.headers['authorization']);
+                return [4 /*yield*/, postRepository_1.default.savePost(req.body, decodedToken.email)];
             case 1:
                 post = _a.sent();
                 if (post) {

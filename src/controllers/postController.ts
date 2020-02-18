@@ -18,7 +18,8 @@ const checkToken = (req, res, next) => {
 }
 
 postController.post('/',  checkToken, async(req, res) => {
-    const post = await postRepository.savePost(req)
+    const decodedToken = jwt.decode(req.headers['authorization'])
+    const post = await postRepository.savePost(req.body, decodedToken.email)
     if(post) {
         res.status(200).json({ message:'OK', post })
     }else{

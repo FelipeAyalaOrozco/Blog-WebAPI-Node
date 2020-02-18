@@ -5,17 +5,16 @@ import { postController } from '../controllers/postController'
 import mongoose from 'mongoose'
 import User from '../models/user'
 
-const savePost = async (req) => {
-    const email = jwt.decode(req.headers.authorization).payload.email
+const savePost = async (body, email) => {
     const author = User.findOne({email})
     const newPost = new Post({
         _id : new mongoose.Types.ObjectId(),
-        title: req.body.title,
-        date : req.body.date,
+        title: body.title,
+        date : body.date,
         author : (await author)._id,
         comments : [],
-        totalComments: req.body.totalComments,
-        content: req.body.content
+        totalComments: body.totalComments,
+        content: body.content
     })
 
     return await newPost.save()

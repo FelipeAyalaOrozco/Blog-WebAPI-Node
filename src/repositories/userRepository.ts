@@ -1,5 +1,6 @@
 import User from '../models/user'
 import { userController } from '../controllers/userController'
+import mongoose from 'mongoose'
 
 const findByEmailAndPassword = async (email, password) => {
     return await User.findOne({email, password})
@@ -10,7 +11,11 @@ const findById = async (id) => {
 }
 
 const saveUser = async (user) => {
-    let newUser = new User(user)
+    const newUser = new User({
+        _id : new mongoose.Types.ObjectId(),
+        email : user.email,
+        password : user.password
+    })
     return await newUser.save()
 }
 

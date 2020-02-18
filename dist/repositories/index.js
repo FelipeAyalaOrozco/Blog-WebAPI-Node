@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importDefault(require("mongoose"));
 var connectDB = function () {
-    return mongoose_1.default.connect('mongodb://localhost:27017/BlogDB', { useNewUrlParser: true });
+    return mongoose_1.default.connect('mongodb://localhost:27017/blogDB', { useNewUrlParser: true });
 };
 exports.connectDB = connectDB;
 //# sourceMappingURL=index.js.map

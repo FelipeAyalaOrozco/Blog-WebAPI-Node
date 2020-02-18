@@ -44,21 +44,38 @@ var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var userRepository_1 = __importDefault(require("../repositories/userRepository"));
 exports.userController = express_1.Router();
 exports.userController.post('/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, email, password, student;
+    var _a, email, password, user;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = req.body, email = _a.email, password = _a.password;
                 return [4 /*yield*/, userRepository_1.default.findByEmailAndPassword(email, password)];
             case 1:
-                student = _b.sent();
-                if (student) {
+                user = _b.sent();
+                if (user) {
                     jsonwebtoken_1.default.sign({ email: email }, 'super-key-super-secret', function (err, token) {
-                        res.status(200).json({ token: token });
+                        res.status(200).json({ token: token, message: 'OK' });
                     });
                 }
                 else {
-                    res.status(404).json({ message: 'NOT FOUNd' });
+                    res.status(404).json({ message: 'Not found' });
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
+exports.userController.post('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, userRepository_1.default.saveUser(req.body)];
+            case 1:
+                user = _a.sent();
+                if (user) {
+                    res.status(200).json({ user: user });
+                }
+                else {
+                    res.status(400).json({ err: 'Something is wrong with request' });
                 }
                 return [2 /*return*/];
         }

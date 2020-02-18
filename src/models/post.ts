@@ -1,31 +1,15 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import User from './user'
 import Comment from './comment'
 
 const postSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
-    title: {
-        type: String
-    },
-    date: {
-        type: String
-    },
-    author:{
-        type: User
-    },
-
-    comments:[{
-        type: Comment
-    }],
-
-    totalComments: {
-        type: Number
-    },
-    content:{
-        type: String
-    }
+    _id: Schema.Types.ObjectId,
+    title: String,
+    date: String,
+    author: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    totalComments: Number,
+    content: String
 })
 
 const Post = mongoose.model('Post', postSchema)

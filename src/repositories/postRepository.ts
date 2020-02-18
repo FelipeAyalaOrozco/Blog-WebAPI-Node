@@ -24,6 +24,11 @@ const commentAPost = async (id, comment) => {
     return await newComment.save()
 }
 
+const findByIdAndDelete = async (id) =>{
+    return await Post.findByIdAndDelete(id)
+}
+
 export default {
-    savePost
+    savePost,
+    findByIdAndDelete
 }

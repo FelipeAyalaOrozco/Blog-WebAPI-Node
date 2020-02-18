@@ -73,4 +73,23 @@ exports.postController.post('/', checkToken, function (req, res) { return __awai
         }
     });
 }); });
+exports.postController.delete('/:id', checkToken, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, post;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, postRepository_1.default.findByIdAndDelete(id)];
+            case 1:
+                post = _a.sent();
+                if (post) {
+                    res.status(200).json({ post: post, message: "OK" });
+                }
+                else {
+                    res.status(404).json({ message: 'post not found' });
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
 //# sourceMappingURL=postController.js.map

@@ -78,7 +78,16 @@ var commentAPost = function (id, comment) { return __awaiter(void 0, void 0, voi
         }
     });
 }); };
+var findByIdAndDelete = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, post_1.default.findByIdAndDelete(id)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
 exports.default = {
-    savePost: savePost
+    savePost: savePost,
+    findByIdAndDelete: findByIdAndDelete
 };
 //# sourceMappingURL=postRepository.js.map

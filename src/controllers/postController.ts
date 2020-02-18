@@ -27,3 +27,14 @@ postController.post('/',  checkToken, async(req, res) => {
     }
 
 })
+
+postController.delete('/:id', checkToken,  async (req, res) => {
+    const id = req.params.id
+    const post = await postRepository.findByIdAndDelete(id)
+    if(post){
+        res.status(200).json({post, message: "OK"})
+
+    }else{
+        res.status(404).json({ message: 'post not found' })
+    }
+})

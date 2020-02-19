@@ -9,8 +9,8 @@ const port = 1337
 const app = express()
 app.use( bodyParser.json() )
 
-app.use( '/users', userController)
-app.use( '/posts', postController)
+app.use( '/user', userController)
+app.use( '/post', postController)
 
 app.get('/', (req, res) => {
     res.send('API is running OK')

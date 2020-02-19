@@ -39,10 +39,16 @@ const commentPost = async (id, body, email) => {
 const findByIdAndDelete = async (id) =>{
     return await Post.findByIdAndDelete(id)
 }
+//patch a post
+
 
 const findById = async (id) =>{
     return await Post.findById(id)
 }
+
+//get a post
+
+
 
 export default {
     savePost,

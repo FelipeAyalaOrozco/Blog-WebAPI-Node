@@ -1,5 +1,14 @@
 import mongoose, { Schema } from 'mongoose'
 
+export interface IPost extends mongoose.Document {
+    title: string
+    date: string,
+    author: any,
+    comments: [any]
+    totalComments: number
+    content: string
+}
+
 const postSchema = new mongoose.Schema({
     _id: Schema.Types.ObjectId,
     title: String,

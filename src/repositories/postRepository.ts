@@ -1,5 +1,6 @@
 import Post from '../models/post'
-import { IPost, Comment } from '../models/comment'
+import { Comment } from '../models/comment'
+import { IPost } from '../models/post'
 import mongoose from 'mongoose'
 import User from '../models/user'
 
@@ -22,7 +23,12 @@ const findById = async (id) => {
     return await Post.findById(id)
 }
 
-// Patch
+const modifyPost = async (id, body) => {
+    const post: IPost = (await findById(id)) as IPost
+    post.title = body.title
+    post.content = body.content
+    return await post.save()
+}
 
 const findByIdAndDelete = async (id) => {
     return await Post.findByIdAndDelete(id)
@@ -47,6 +53,7 @@ const commentPost = async (id, body, email) => {
 
 export default {
     savePost,
+    modifyPost,
     findByIdAndDelete,
     findById,
     commentPost

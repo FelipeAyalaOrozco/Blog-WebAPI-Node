@@ -14,7 +14,6 @@ const checkToken = (req, res, next) => {
             next()
         }
     })
-
 }
 
 postController.post('/', checkToken, async (req, res) => {
@@ -38,7 +37,15 @@ postController.get('/:id', checkToken, async (req, res) => {
     }
 })
 
-// Patch
+postController.patch('/:id', checkToken, async (req, res) => {
+    const id = req.params.id
+    const post = await postRepository.modifyPost(id, req.body)
+    if (post) {
+        res.status(200).json({ message: 'OK', post })
+    } else {
+        res.status(400).json({ message: 'bad request', post })
+    }
+})
 
 postController.delete('/:id', checkToken, async (req, res) => {
     const id = req.params.id
@@ -54,7 +61,7 @@ postController.delete('/:id', checkToken, async (req, res) => {
 postController.post('/:id/comment', checkToken, async (req, res) => {
     const id = req.params.id
 
-    const decodedToken = jwt.decode(req.headers.authorization)
+    const decodedToken = jwt.decode(req.headers['authorization'])
     const post = await postRepository.commentPost(id, req.body, decodedToken.email)
     if (post) {
         res.status(200).json({ message: 'OK', post })

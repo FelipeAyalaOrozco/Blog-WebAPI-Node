@@ -17,7 +17,7 @@ const checkToken = (req, res, next) => {
 }
 
 postController.post('/', checkToken, async (req, res) => {
-    const decodedToken = jwt.decode(req.headers.authorization)
+    const decodedToken = jwt.decode(req.headers['authorization'])
     const post = await postRepository.savePost(req.body, decodedToken.email)
     if (post) {
         res.status(200).json({ message: 'OK', post })
@@ -59,7 +59,7 @@ postController.delete('/:id', checkToken, async (req, res) => {
 
 postController.post('/:id/comment', checkToken, async (req, res) => {
     const id = req.params.id
-    const decodedToken = jwt.decode(req.headers.authorization)
+    const decodedToken = jwt.decode(req.headers['authorization'])
     const post = await postRepository.commentPost(id, req.body, decodedToken.email)
     if (post) {
         res.status(200).json({ message: 'OK', post })

@@ -46,9 +46,8 @@ const commentPost = async (id, body, email) => {
     })
     post.comments.push(newComment)
     post.totalComments += 1
-    post.save()
-
-    return await newComment.save()
+    newComment.save()
+    return await post.save()
 }
 
 export default {

@@ -22,7 +22,7 @@ postController.post('/', checkToken, async (req, res) => {
     if (post) {
         res.status(200).json({ message: 'OK', post })
     } else {
-        res.status(400).json({ message: 'bad request', post })
+        res.status(400).json({ err : 'Bad Request'})
     }
 })
 
@@ -30,10 +30,9 @@ postController.get('/:id', checkToken, async (req, res) => {
     const id = req.params.id
     const post = await postRepository.findById(id)
     if (post) {
-        res.status(200).json({ post, message: "OK" })
-
+        res.status(200).json({ message: 'OK', post })
     } else {
-        res.status(404).json({ message: 'post not found' })
+        res.status(400).json({ err : 'Bad Request'})
     }
 })
 
@@ -43,7 +42,7 @@ postController.patch('/:id', checkToken, async (req, res) => {
     if (post) {
         res.status(200).json({ message: 'OK', post })
     } else {
-        res.status(400).json({ message: 'bad request', post })
+        res.status(400).json({ message: 'Not Found'})
     }
 })
 
@@ -54,18 +53,17 @@ postController.delete('/:id', checkToken, async (req, res) => {
         res.status(200).json({ message: "OK" })
 
     } else {
-        res.status(404).json({ message: 'post not found' })
+        res.status(400).json({ message: 'Not Found'})
     }
 })
 
 postController.post('/:id/comment', checkToken, async (req, res) => {
     const id = req.params.id
-
-    const decodedToken = jwt.decode(req.headers['authorization'])
+    const decodedToken = jwt.decode(req.headers.authorization)
     const post = await postRepository.commentPost(id, req.body, decodedToken.email)
     if (post) {
         res.status(200).json({ message: 'OK', post })
     } else {
-        res.status(400).json({ message: 'bad request', post })
+        res.status(400).json({ err : 'Bad Request'})
     }
 })

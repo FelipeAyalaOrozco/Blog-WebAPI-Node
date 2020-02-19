@@ -28,7 +28,7 @@ const commentPost = async (id, body, email) => {
         author : (await author)._id,
         date : body.date,
     })
-    post.comment = newComment._id
+    post.update({comments: {newComment}}) 
     return await newComment.save()
 }
 
@@ -36,8 +36,13 @@ const findByIdAndDelete = async (id) =>{
     return await Post.findByIdAndDelete(id)
 }
 
+const findById = async (id) =>{
+    return await Post.findByIdAndDelete(id)
+}
+
 export default {
     savePost,
     findByIdAndDelete,
+    findById,
     commentPost
 }

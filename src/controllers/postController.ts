@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import jwt from 'jsonwebtoken'
 import postRepository from '../repositories/postRepository'
+import { IPost } from '../models/comment'
 
 export const postController = Router()
 
@@ -53,6 +54,7 @@ postController.get('/:id', checkToken, async (req, res) => {
 
 postController.post('/:id/comment', checkToken, async (req, res) => {
     const id = req.params.id
+    
     const decodedToken = jwt.decode(req.headers['authorization'])
     const post = await postRepository.commentPost(id, req.body, decodedToken.email)
     if (post) {

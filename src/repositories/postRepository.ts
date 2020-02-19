@@ -1,6 +1,6 @@
 import Post from '../models/post'
 import jwt from 'jsonwebtoken'
-import Comment from '../models/comment'
+import  { IPost, Comment } from '../models/comment'
 import { postController } from '../controllers/postController'
 import mongoose from 'mongoose'
 import User from '../models/user'
@@ -20,7 +20,8 @@ const savePost = async (body, email) => {
     return await newPost.save()
 }
 const commentPost = async (id, body, email) => {
-    const post = Post.findById(id)
+    const post : IPost= <IPost>(await findById(id))
+    //const post = Post.findById(id)
     const author = User.findOne({email})
     const newComment = new Comment({
         _id : new mongoose.Types.ObjectId(),
@@ -28,7 +29,10 @@ const commentPost = async (id, body, email) => {
         author : (await author)._id,
         date : body.date,
     })
-    post.update({comments: {newComment}}) 
+    post.comments.push(newComment)
+    post.totalComments += 1
+    post.save()
+    
     return await newComment.save()
 }
 
@@ -37,7 +41,7 @@ const findByIdAndDelete = async (id) =>{
 }
 
 const findById = async (id) =>{
-    return await Post.findByIdAndDelete(id)
+    return await Post.findById(id)
 }
 
 export default {

@@ -1,1 +1,12 @@
 node_modules/
+<<<<<<< HEAD
+/dist
+=======
+dist
+dist/controllers/postController.js
+dist/controllers/postController.js.map
+dist/repositories/postRepository.js
+dist/repositories/postRepository.js.map
+dist/repositories/userRepository.js
+dist/repositories/userRepository.js.map
+>>>>>>> dc9fe9f31d587c0848ea062ea1683b2aa7abf870
